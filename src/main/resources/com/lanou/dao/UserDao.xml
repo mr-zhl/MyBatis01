@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--namespace:xml对应的接口-->
+<mapper namespace="com.lanou.dao.UserDao">
+
+    <!--映射文件里-->
+
+    <!--
+    select:和做数据库操作保持一致
+    id:和dao层中接口的方法保持一致
+    resultType:一条数据结果以什么类型展示
+    -->
+    <select id="selectAll" resultType="com.lanou.pojo.User">
+      select * from user;
+    </select>
+    <select id="selectByID" resultType="com.lanou.pojo.User">
+        select * from user where id = #{id};
+    </select>
+    <delete id="delete">
+        delete from user where id = #{id};
+    </delete>
+    <!--<insert id="add">-->
+        <!--insert into user (username, password) values(#{arg0},#{arg1})-->
+    <!--</insert>-->
+
+    <insert id="add">
+        insert into user (username, password) values(username,password)
+    </insert>
+
+
+
+</mapper>

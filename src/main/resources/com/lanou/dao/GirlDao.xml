@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--namespace:xml对应的接口-->
+<mapper namespace="com.lanou.dao.GirlDao">
+
+    <!--<select id="selectAll" resultType="com.lanou.pojo.Girl">-->
+    <!--select * from sms_girl;-->
+    <!--</select>-->
+
+    <!--<select id="selectAll" resultType="com.lanou.pojo.Girl">-->
+            <!--select g_id id,g_name name,g_age age from sms_girl girl ;-->
+            <!--</select>-->
+    <!--表中的映射-->
+    <!--属性和字段相匹配-->
+    <resultMap id="girlMap" type="com.lanou.pojo.Girl">
+        <id property="id" column="g_id"/>
+        <result property="name" column="g_name"/>
+        <result property="age" column="g_age"/>
+    </resultMap>
+    <!--
+    resultType:一条数据最终形成的数据类型
+    resultMap:当数据类型和表中字段不一致时,自定义映射关系
+    -->
+    <select id="selectAll" resultMap="girlMap">
+    select * from sms_girl;
+    </select>
+
+    <insert id="insert">
+        insert into sms_girl(g_name,g_age) values (#{name},#{age});
+    </insert>
+    <insert id="insert1">
+         insert into sms_girl(g_name,g_age) values (#{name},#{age});
+    </insert>
+
+    <update id="update1">
+        update sms_girl set g_name=#{name} where g_id=#{id};
+    </update>
+
+    <update id="update2">
+        update sms_girl set g_age=#{age} where g_id=#{id};
+    </update>
+
+    <update id="update3">
+        update sms_girl set g_name=#{name},g_age=#{age} where g_id=#{id};
+    </update>
+
+    <!--
+    set:
+    set配合if动态进行update的操作
+    1.如果set中没有成立的if,SQL语句中会省略set
+    2.如果set中有成立的if,会去掉有多余的逗号
+    -->
+    <update id="update4">
+        update sms_girl
+        <set>
+        <if test="name!=null">
+            g_name=#{name},
+        </if>
+        <if test="age!=null">
+            g_age=#{age}
+        </if>
+        </set>
+        where g_id=#{id};
+    </update>
+
+    <select id="selectAll1" resultMap="girlMap">
+        select * from sms_girl
+        <where>
+            <if test="name!=null">
+                g_name=#{name}
+            </if>
+            <if test="age!=null">
+                AND g_age=#{age}
+            </if>
+        </where>
+    </select>
+
+
+</mapper>
