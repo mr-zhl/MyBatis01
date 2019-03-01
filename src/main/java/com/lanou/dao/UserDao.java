@@ -15,8 +15,7 @@ public interface UserDao {
     int delete(int id);
     //添加
     int add(@Param("username") String username,@Param("password")String password);
-    //修改
-    int modify(int id);
+
 
 
 
